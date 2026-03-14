@@ -525,11 +525,231 @@ footer a { color: var(--text-dim); }
   transform: translateY(0);
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 640px) {
-  .hero h1 { letter-spacing: -1px; }
-  .stat-grid { grid-template-columns: 1fr; }
-  .ticker-section { display: none; }
+/* ══════════════════════════════════════════
+   MOBILE — full overhaul
+══════════════════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+
+  .hero {
+    padding: 100px 0 60px;
+    min-height: auto;
+  }
+  .hero h1 { letter-spacing: -1.5px; }
+  .hero-sub { font-size: 1rem; }
+
+  .hero-cta {
+    font-size: 16px;
+    padding: 14px 28px;
+  }
+
+  .stats h2,
+  .program h2,
+  .proof h2,
+  .problem h2,
+  .cta-section h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .stat-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .vs-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* Phone */
+@media (max-width: 540px) {
+  .container { padding: 0 16px; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 96px 0 48px;
+    text-align: center;
+  }
+
+  .hero::after {
+    width: 320px;
+    height: 320px;
+    top: 10%;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .hero-cta {
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
+    padding: 18px 24px;
+    border-radius: 8px;
+  }
+
+  /* ── Ticker: show simplified on mobile ── */
+  .ticker-section {
+    padding: 28px 0;
+  }
+
+  .ticker-item { font-size: 12px; }
+  .ticker-item .num { font-size: 22px; }
+
+  /* ── Stats ── */
+  .stats { padding: 56px 0; }
+  .stats h2 { font-size: 1.6rem; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .stats .lead { font-size: 0.95rem; margin-bottom: 32px; }
+
+  .stat-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .stat-card {
+    padding: 22px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .stat-card .number {
+    font-size: 2rem;
+    margin-bottom: 0;
+    min-width: 90px;
+    flex-shrink: 0;
+  }
+
+  .stat-card .label { font-size: 0.88rem; }
+  .stat-card .source { font-size: 10px; margin-top: 6px; }
+
+  /* ── Problem / VS ── */
+  .problem { padding: 56px 0; }
+  .problem h2 { font-size: 1.6rem; margin-bottom: 28px; }
+
+  .vs-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .vs-card { padding: 24px 20px; border-radius: 10px; }
+  .vs-card .vs-label { font-size: 11px; }
+  .vs-card li { font-size: 0.9rem; }
+
+  /* ── Program ── */
+  .program { padding: 56px 0; }
+  .program h2 { font-size: 1.6rem; }
+  .program .lead { font-size: 0.95rem; margin-bottom: 36px; }
+
+  .timeline::before { left: 14px; }
+
+  .tl-dot {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 12px;
+  }
+
+  .tl-item { gap: 18px; padding: 18px 0; }
+  .tl-content h3 { font-size: 1.05rem; }
+  .tl-content p { font-size: 0.9rem; }
+
+  /* ── Proof ── */
+  .proof { padding: 56px 0; }
+  .proof h2 { font-size: 1.6rem; margin-bottom: 28px; }
+
+  .proof-card {
+    padding: 24px 20px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+
+  .proof-card::before {
+    font-size: 56px;
+    top: 6px;
+    left: 16px;
+  }
+
+  .proof-card .quote-text {
+    font-size: 0.95rem;
+    padding-left: 12px;
+  }
+
+  .proof-card .quote-author {
+    font-size: 12px;
+    padding-left: 12px;
+  }
+
+  .proof-result {
+    font-size: 12px;
+    padding: 10px 14px;
+    margin-left: 12px;
+  }
+
+  /* ── Who ── */
+  .proof-card > div[style*="display:flex"] {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* ghost_dev tags — wrap comfortably */
+  div[style*="display:flex; gap:12px"] {
+    gap: 8px !important;
+  }
+
+  div[style*="display:flex; gap:12px"] span {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+  }
+
+  /* ── CTA ── */
+  .cta-section { padding: 72px 0; }
+
+  .cta-section::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .cta-section .sub {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  .cta-section .hero-cta {
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
+    padding: 18px 24px;
+    border-radius: 8px;
+  }
+
+  .cta-section .price {
+    font-size: 12px;
+    margin-top: 14px;
+    line-height: 1.6;
+    padding: 0 8px;
+  }
+
+  .cta-section .spots {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  /* ── Footer ── */
+  footer { padding: 28px 0; }
+  footer p { font-size: 12px; line-height: 1.6; }
 }
 </style>
 </head>
@@ -538,7 +758,7 @@ footer a { color: var(--text-dim); }
 <!-- ═══ HERO ═══ -->
 <section class="hero">
 <div class="container">
-  <div class="tag">// ai_fastlane v1.0</div>
+  <div class="tag">// ai_fastlane · beta</div>
   <h1>
     <span class="strike">Чат с AI</span> — вчера.<br>
     <span class="highlight">Агентная разработка</span> — сейчас.
@@ -546,7 +766,7 @@ footer a { color: var(--text-dim); }
   <p class="hero-sub">
     246 000 разработчиков потеряли работу в 2025 году. 84% уже используют AI — но только 16% готовы к тому, что будет дальше. Практическая программа: от чата с ChatGPT до 80%+ кода через AI-агентов за 2 недели.
   </p>
-  <a href="https://t.me/ai_fastlane_dev" class="hero-cta">
+  <a href="https://t.me/nikita_lezia" class="hero-cta">
     Записаться на программу →
   </a>
 </div>
@@ -699,8 +919,8 @@ footer a { color: var(--text-dim); }
     <div>
       <div style="font-family:var(--mono); font-size:13px; color:var(--accent); margin-bottom:12px;">// ghost_dev · Senior Software Engineer</div>
       <div class="quote-text" style="padding-left:0; font-style:normal;">
-        8+ лет разработки. Топ-10 iOS-продукты. Сейчас пишу 80%+ кода через AI-агентов.<br><br>
-        Настоящее имя не указываю — <span style="color:var(--yellow)">работодатели читают.</span> Метод работает — это важнее имени.
+        Senior iOS-разработчик. Крупные продукты, реальная аудитория. Сейчас пишу 80%+ кода через AI-агентов.<br><br>
+        Имя не указываю — <span style="color:var(--yellow)">работодатели читают.</span> Метод работает — это важнее имени.
       </div>
       <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
         <span style="font-family:var(--mono); font-size:12px; padding:6px 12px; border:1px solid rgba(0,255,136,0.2); border-radius:4px; color:var(--accent)">iOS / Swift</span>
@@ -723,7 +943,7 @@ footer a { color: var(--text-dim); }
 <div class="container">
   <h2 class="reveal">Окно ещё открыто.<br>Но не навсегда.</h2>
   <p class="sub reveal">2 недели. 3 созвона. Твой код. Измеримый результат.</p>
-  <a href="https://t.me/ai_fastlane_dev" class="hero-cta reveal">
+  <a href="https://t.me/nikita_lezia" class="hero-cta reveal">
     Написать в Telegram →
   </a>
   <p class="price reveal">$99 старт · потом $149 · потом $200 — цена растёт с каждым кейсом</p>
@@ -734,7 +954,7 @@ footer a { color: var(--text-dim); }
 <!-- ═══ FOOTER ═══ -->
 <footer>
 <div class="container">
-  <p>AI Fastlane · Senior Dev, 8+ лет · работодатели ищут, но не найдут · <a href="https://t.me/ai_fastlane_dev">@ai_fastlane_dev</a></p>
+  <p>AI Fastlane · Senior Dev · работодатели ищут, но не найдут · <a href="https://t.me/nikita_lezia">@nikita_lezia</a></p>
 </div>
 </footer>
 
