@@ -496,17 +496,18 @@ body::before {
 
 /* ── FOOTER ── */
 footer {
-  padding: 40px 0;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.03);
   text-align: center;
 }
 
 footer p {
-  font-size: 13px;
+  font-size: 11px;
   color: var(--text-muted);
+  opacity: 0.5;
 }
 
-footer a { color: var(--text-dim); }
+footer a { color: var(--text-muted); text-decoration: none; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -895,7 +896,7 @@ footer a { color: var(--text-dim); }
     <div class="quote-text">
       Перешёл на Cursor по рекомендации наставника. Сейчас пишу 100% кода через AI-агентов. Когда в компании прошла волна сокращений — из команды разработки оставили двоих. Я остался.
     </div>
-    <div class="quote-author">— iOS-разработчик, ex-БКС · анонимно по просьбе</div>
+    <div class="quote-author">— iOS-разработчик · анонимно по просьбе</div>
     <div class="proof-result">0% → 100% AI-кода. Пережил сокращение.</div>
   </div>
 
@@ -917,9 +918,9 @@ footer a { color: var(--text-dim); }
   <div class="proof-card reveal" style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap;">
     <div style="font-size:56px; line-height:1; min-width:56px;">👻</div>
     <div>
-      <div style="font-family:var(--mono); font-size:13px; color:var(--accent); margin-bottom:12px;">// ghost_dev · Senior Software Engineer</div>
+      <div style="font-family:var(--mono); font-size:13px; color:var(--accent); margin-bottom:12px;">// ghost_dev · Senior iOS Engineer · 9+ лет</div>
       <div class="quote-text" style="padding-left:0; font-style:normal;">
-        Senior iOS-разработчик. Крупные продукты, реальная аудитория. Сейчас пишу 80%+ кода через AI-агентов.<br><br>
+        iOS-разработчик. Крупные продукты, реальная аудитория. Сейчас пишу 80%+ кода через AI-агентов.<br><br>
         Имя не указываю. Метод работает — это важнее.
       </div>
       <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
@@ -946,8 +947,7 @@ footer a { color: var(--text-dim); }
   <a href="https://t.me/nikita_lezia" class="hero-cta reveal">
     Написать в Telegram →
   </a>
-  <p class="price reveal">$99 старт · потом $149 · потом $200 — цена растёт с каждым кейсом</p>
-  <p class="spots reveal">▌▌░░░ Осталось 2 места по стартовой цене</p>
+  <p class="spots reveal" style="margin-top:16px;">▌▌░░░ Ограниченный набор · обсудим в личке</p>
 </div>
 </section>
 
