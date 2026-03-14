@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Fastlane — Стань незаменимым разработчиком за 2 недели</title>
+<meta name="description" content="Практическая программа перехода с чат-AI на агентную разработку для iOS-разработчиков. От 0 до 80%+ кода через AI-агенты.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a28;
+  --accent: #00ff88;
+  --accent-dim: #00cc6a;
+  --accent-glow: rgba(0, 255, 136, 0.15);
+  --red: #ff3355;
+  --red-glow: rgba(255, 51, 85, 0.12);
+  --yellow: #ffd60a;
+  --text: #e8e8ef;
+  --text-dim: #8888a0;
+  --text-muted: #555566;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 0 60px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero .container { position: relative; z-index: 1; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  border: 1px solid rgba(0,255,136,0.3);
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--accent), #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h1 .strike {
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 3px;
+  opacity: 0.4;
+}
+
+.hero-sub {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: var(--text-dim);
+  max-width: 620px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  animation: fadeUp 0.8s 0.45s ease both;
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+/* ── TICKER ── */
+.ticker-section {
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 60px;
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.ticker-item .num {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--sans);
+}
+
+.ticker-item .num.red { color: var(--red); }
+.ticker-item .num.green { color: var(--accent); }
+.ticker-item .num.yellow { color: var(--yellow); }
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── STATS SECTION ── */
+.stats {
+  padding: 80px 0;
+}
+
+.stats h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.stats .lead {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+.stat-card .number {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.stat-card .number.red { color: var(--red); }
+.stat-card .number.green { color: var(--accent); }
+
+.stat-card .label {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.stat-card .source {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* ── PROBLEM / SOLUTION ── */
+.problem {
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.problem h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 640px) { .vs-grid { grid-template-columns: 1fr; } }
+
+.vs-card {
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid;
+}
+
+.vs-card.bad {
+  background: var(--red-glow);
+  border-color: rgba(255,51,85,0.2);
+}
+
+.vs-card.good {
+  background: var(--accent-glow);
+  border-color: rgba(0,255,136,0.2);
+}
+
+.vs-card .vs-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.vs-card.bad .vs-label { color: var(--red); }
+.vs-card.good .vs-label { color: var(--accent); }
+
+.vs-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vs-card li {
+  font-size: 0.95rem;
+  padding-left: 24px;
+  position: relative;
+  color: var(--text-dim);
+}
+
+.vs-card.bad li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.vs-card.good li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* ── PROGRAM ── */
+.program {
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.program h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.program .lead {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), rgba(0,255,136,0.1));
+}
+
+.tl-item {
+  display: flex;
+  gap: 28px;
+  padding: 24px 0;
+  align-items: flex-start;
+}
+
+.tl-dot {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  z-index: 1;
+}
+
+.tl-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.tl-content p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* ── PROOF ── */
+.proof {
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.proof h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+.proof-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 36px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.proof-card::before {
+  content: '"';
+  font-size: 80px;
+  font-family: Georgia, serif;
+  color: var(--accent);
+  opacity: 0.2;
+  position: absolute;
+  top: 10px;
+  left: 24px;
+  line-height: 1;
+}
+
+.proof-card .quote-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.proof-card .quote-author {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  padding-left: 20px;
+}
+
+.proof-result {
+  display: inline-block;
+  background: var(--accent-glow);
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-top: 12px;
+  margin-left: 20px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+}
+
+/* ── CTA ── */
+.cta-section {
+  padding: 100px 0;
+  text-align: center;
+  position: relative;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section .container { position: relative; z-index: 1; }
+
+.cta-section h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.cta-section .sub {
+  color: var(--text-dim);
+  font-size: 1.15rem;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.cta-section .price {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
+.cta-section .spots {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--yellow);
+  margin-top: 12px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+
+footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+footer a { color: var(--text-dim); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .hero h1 { letter-spacing: -1px; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .ticker-section { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+<div class="container">
+  <div class="tag">// ai_fastlane v1.0</div>
+  <h1>
+    <span class="strike">Чат с AI</span> — вчера.<br>
+    <span class="highlight">Агентная разработка</span> — сейчас.
+  </h1>
+  <p class="hero-sub">
+    246 000 разработчиков потеряли работу в 2025 году. 84% уже используют AI — но только 16% готовы к тому, что будет дальше. Практическая программа: от чата с ChatGPT до 80%+ кода через AI-агентов за 2 недели.
+  </p>
+  <a href="https://t.me/nikitalezya" class="hero-cta">
+    Записаться на программу →
+  </a>
+</div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<section class="ticker-section">
+<div class="ticker-track">
+  <div class="ticker-item"><span class="num red">246K</span> tech layoffs 2025</div>
+  <div class="ticker-item"><span class="num red">55K+</span> уволены в 2026 за 73 дня</div>
+  <div class="ticker-item"><span class="num yellow">84%</span> разработчиков используют AI</div>
+  <div class="ticker-item"><span class="num red">16%</span> реально готовы к AI-эре</div>
+  <div class="ticker-item"><span class="num green">80%+</span> кода через агентов</div>
+  <div class="ticker-item"><span class="num red">-25%</span> найм junior-разработчиков</div>
+  <!-- duplicate for seamless scroll -->
+  <div class="ticker-item"><span class="num red">246K</span> tech layoffs 2025</div>
+  <div class="ticker-item"><span class="num red">55K+</span> уволены в 2026 за 73 дня</div>
+  <div class="ticker-item"><span class="num yellow">84%</span> разработчиков используют AI</div>
+  <div class="ticker-item"><span class="num red">16%</span> реально готовы к AI-эре</div>
+  <div class="ticker-item"><span class="num green">80%+</span> кода через агентов</div>
+  <div class="ticker-item"><span class="num red">-25%</span> найм junior-разработчиков</div>
+</div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats">
+<div class="container">
+  <h2 class="reveal">Цифры, которые нельзя игнорировать</h2>
+  <p class="lead reveal">Мы в переходном состоянии. Ещё не поздно стать early adopter — но окно закрывается.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card reveal">
+      <div class="number red">246,000</div>
+      <div class="label">разработчиков потеряли работу в tech-индустрии в 2025 году. 764 человека в день увольняют в 2026.</div>
+      <div class="source">layoffs.fyi, Crunchbase</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="number red">55,000</div>
+      <div class="label">AI-атрибутированных увольнений в 2025. CEO Block: «Маленькая команда с AI-инструментами делает больше и лучше».</div>
+      <div class="source">Challenger, Gray & Christmas</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="number red">16%</div>
+      <div class="label">разработчиков имеют высокий AI Readiness (AIQ). 84% используют AI, но большинство застряли на уровне чата.</div>
+      <div class="source">Forrester AIQ Research 2025</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="number green">10-55%</div>
+      <div class="label">ускорение разработки при использовании AI-агентов. Менее опытные разработчики получают наибольший выигрыш.</div>
+      <div class="source">MIT Sloan, Bain & Company</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ PROBLEM / SOLUTION ═══ -->
+<section class="problem">
+<div class="container">
+  <h2 class="reveal">Чат ≠ Агент</h2>
+
+  <div class="vs-grid reveal">
+    <div class="vs-card bad">
+      <div class="vs-label">Где сейчас большинство</div>
+      <ul>
+        <li>Копируют код из ChatGPT и вставляют</li>
+        <li>Используют AI как Google с доп. шагами</li>
+        <li>Тратят больше времени на prompt, чем на код</li>
+        <li>Скрывают от коллег, что используют AI</li>
+        <li>Не понимают разницу между Copilot и Claude Code</li>
+        <li>Productivity +10-15%, разочарование</li>
+      </ul>
+    </div>
+    <div class="vs-card good">
+      <div class="vs-label">Где будешь через 2 недели</div>
+      <ul>
+        <li>AI-агент пишет модули, ты ревьюишь</li>
+        <li>Cursor + Claude Code как второй разработчик в команде</li>
+        <li>80%+ кода генерируется агентами</li>
+        <li>Стандартный workflow на рабочих задачах</li>
+        <li>MCP-серверы, мультиагенты, кастомные правила</li>
+        <li>Productivity x3-5, конкурентное преимущество</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ PROGRAM ═══ -->
+<section class="program">
+<div class="container">
+  <h2 class="reveal">Программа: 2 недели</h2>
+  <p class="lead reveal">3 живых созвона + async-поддержка в Telegram. Не теория — практика на твоём коде, с твоими задачами.</p>
+
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-dot">01</div>
+      <div class="tl-content">
+        <h3>Setup & First Kill</h3>
+        <p>Настраиваем Cursor + Claude Code под твой проект. Конфигурим правила, MCP-серверы, шаблоны промптов. Берём реальную задачу с работы и решаем через агента — ты видишь разницу в первый час.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">02</div>
+      <div class="tl-content">
+        <h3>Deep Dive</h3>
+        <p>Разбираем сложные кейсы: рефакторинг, архитектурные решения, тесты, code review через AI. Работаем с сопротивлением — когда AI выдаёт мусор и хочется всё бросить. Паттерны, которые работают для iOS/Swift.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">03</div>
+      <div class="tl-content">
+        <h3>Autonomy</h3>
+        <p>Ты работаешь самостоятельно неделю. Я на связи в Telegram. Разбираем результаты: сколько % кода через агентов, где застрял, что дальше. Выпускной: у тебя workflow, который работает каждый день.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ PROOF ═══ -->
+<section class="proof">
+<div class="container">
+  <h2 class="reveal">Это уже работает</h2>
+
+  <div class="proof-card reveal">
+    <div class="quote-text">
+      Перешёл на Cursor по рекомендации Никиты. Сейчас пишу 100% кода через AI-агентов. Когда в компании прошла волна сокращений — из команды разработки оставили двоих. Я остался.
+    </div>
+    <div class="quote-author">— iOS-разработчик, ex-БКС</div>
+    <div class="proof-result">0% → 100% AI-кода. Пережил сокращение.</div>
+  </div>
+
+  <div class="proof-card reveal">
+    <div class="quote-text">
+      Долго сопротивлялся. Спрашивал чат, не понимал зачем агенты. После того как Никита показал свой workflow на моём коде — за неделю перестроился. Экономлю 2-3 часа в день.
+    </div>
+    <div class="quote-author">— iOS-разработчик, друг и коллега</div>
+    <div class="proof-result">Чат → агенты за 1 неделю. -3 часа рутины/день.</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+<div class="container">
+  <h2 class="reveal">Окно ещё открыто.<br>Но не навсегда.</h2>
+  <p class="sub reveal">2 недели. 3 созвона. Твой код. Измеримый результат.</p>
+  <a href="https://t.me/nikitalezya" class="hero-cta reveal">
+    Написать Никите в Telegram →
+  </a>
+  <p class="price reveal">$300 за программу · Первым 3 участникам — $200</p>
+  <p class="spots reveal">▌▌▌░░ Осталось 3 места в ближайшем потоке</p>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+<div class="container">
+  <p>AI Fastlane · Никита Лезя · 8+ лет iOS · Sber ML/AI · <a href="https://t.me/nikitalezya">@nikitalezya</a></p>
+</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
